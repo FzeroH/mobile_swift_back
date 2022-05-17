@@ -12,7 +12,7 @@ app.get('/api/get_users', (req, res) => {
 });
 
 app.post('/api/create_user' ,(req, res) => {
-    userController.createUsers(req, res)
+    userController.createUser(req, res)
 });
 
 app.listen(process.env.PORT, () => {
