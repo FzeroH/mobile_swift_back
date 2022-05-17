@@ -14,7 +14,7 @@ class UserController {
             })
     };
 
-    async createUsers (req, res) {
+    async createUser (req, res) {
         const userData = req.body
         await db.query(
             'INSERT INTO users (user_name, user_login, user_password) VALUES (${username}, ${login}, ${password})',
