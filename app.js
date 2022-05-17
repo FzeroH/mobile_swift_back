@@ -1,24 +1,20 @@
 require('dotenv').config();
 const express = require('express');
+const { UserController } = require("./Controllers/UserController");
 const app = express();
-var pgp = require("pg-promise")();
-var db = pgp(`postgres://${ process.env.DB_LOGIN }:${ process.env.DB_PASSWORD }@${ process.env.DB_HOST }:${ process.env.DB_PORT }/${ process.env.DB_NAME }`);
+const bodyParser = require('body-parser')
+const userController = new UserController();
+app.use(bodyParser.json());
 
-app.get('/api/get_user', (req, res) => {
-    getUsers(res)
+
+app.get('/api/get_users', (req, res) => {
+    userController.getUsers(res)
+});
+
+app.post('/api/create_user' ,(req, res) => {
+    userController.createUsers(req, res)
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port ${process.env.PORT}`)
+    console.log(`App listening on port ${process.env.PORT}`)
 });
-
-const getUsers = (res) => {
-    db.one("SELECT * FROM users", 123)
-        .then((data) => {
-            console.log(data)
-            res.send(data)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-};
