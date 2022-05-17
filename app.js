@@ -15,6 +15,10 @@ app.post('/api/create_user' ,(req, res) => {
     userController.createUser(req, res)
 });
 
+app.post('/api/get_user', (req, res) => {
+    userController.getUserInfo(req, res)
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`App listening on port ${process.env.PORT}`)
 });
