@@ -1,5 +1,5 @@
 const { db } = require('../database')
-// user_id | blog_title | blog_text | blog_datetime
+
 class ArticlesController {
     async createArticle(req, res) {
         const articleData = req.body
