@@ -1,5 +1,5 @@
 const { db } = require('../database')
-// blog_id | user_id | comment_text | comment_datetime
+
 class CommentsController {
     async createComment (req, res) {
         const date = new Date()
