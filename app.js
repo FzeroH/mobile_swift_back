@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
-const { UserController } = require("./Controllers/UserController");
 const app = express();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const { ArticlesController } = require("./Controllers/ArticlesController");
+const { CommentsController } = require("./Controllers/CommentsController");
+const { UserController } = require("./Controllers/UserController");
 const userController = new UserController();
 const articleController = new ArticlesController();
+const commentController = new CommentsController();
 app.use(bodyParser.json());
 
 
@@ -28,6 +30,15 @@ app.get('/api/get_articles_list', (req, res) => {
 });
 app.post('/api/get_article', (req, res) => {
     articleController.getArticle(req, res)
+});
+app.post('/api/create_comment', (req, res) => {
+    commentController.createComment(req, res)
+});
+app.post('/api/get_list_comments', (req, res) => {
+    commentController.getListComments(req, res)
+});
+app.post('/api/get_number_comments', (req, res) => {
+    commentController.getNumberComments(req, res)
 });
 
 app.listen(process.env.PORT, () => {
