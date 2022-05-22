@@ -14,22 +14,36 @@ class UserController {
 
     async createUser (req, res) {
         const userData = req.body
-        await db.query(
-            'INSERT INTO users (user_name, user_login, user_password) VALUES (${ username }, ${ login }, ${ password })',
-            {
-                username: userData.username,
-                login: userData.login,
-                password: userData.password
-            })
-            .then((data) => {
-                console.log(data)
-                res.send('OK')
-            })
-            .catch((error) => {
-                console.error(error)
-                res.send(error)
-            })
         console.log(userData)
+        if (userData.username.length !== 0 || userData.login.length !== 0 || userData.password.length !== 0) {
+            await db.query('SELECT user_login from users WHERE user_login = ${ login }', {
+                login: userData.login
+            })
+                .then((data) => {
+                    console.log(data)
+                    if(data.length !== 0) {
+                        res.send({ message: 'Пользователь с таким именем уже существует в базе', data: data })
+                    } else {
+                         db.query(
+                            'INSERT INTO users (user_name, user_login, user_password) VALUES (${ username }, ${ login }, ${ password })',
+                            {
+                                username: userData.username,
+                                login: userData.login,
+                                password: userData.password
+                            })
+                            .then(() => {
+                                res.send({status: 'OK', message:'Пользователь добавлен'})
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                                res.send(error)
+                            })
+                    }
+                }
+            )
+        } else {
+            res.send({ message: 'Заполните все поля' })
+        }
     }
 
     async getUserInfo(req, res) {
