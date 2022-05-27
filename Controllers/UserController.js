@@ -49,7 +49,7 @@ class UserController {
     async getUserInfo(req, res) {
         await db.query('SELECT user_id, user_name, user_login FROM users WHERE user_id = ${ id }' , { id: req.body.id})
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)
