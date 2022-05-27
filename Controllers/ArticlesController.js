@@ -21,7 +21,7 @@ class ArticlesController {
     async getArticlesList(res) {
         await db.query('SELECT * FROM blog')
             .then((data) => {
-                res.send(data[0])
+                res.send(data)
             })
             .catch((error) => {
                 console.error(error)
