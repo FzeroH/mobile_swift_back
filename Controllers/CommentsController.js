@@ -11,7 +11,7 @@ class CommentsController {
                 comment_datetime: date
             })
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)
@@ -22,7 +22,7 @@ class CommentsController {
             blog_id: req.body.blog_id
         })
             .then((data) => {
-            res.send(data)
+            res.send(data[0])
         })
             .catch((error) => {
                 console.error(error)
@@ -34,7 +34,7 @@ class CommentsController {
             user_id: req.body.user_id
         })
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)

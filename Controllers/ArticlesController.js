@@ -11,7 +11,7 @@ class ArticlesController {
             blogDateTime: date
         })
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)
@@ -21,7 +21,7 @@ class ArticlesController {
     async getArticlesList(res) {
         await db.query('SELECT * FROM blog')
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)
@@ -31,7 +31,7 @@ class ArticlesController {
     async getArticle(req, res) {
         await db.query('SELECT * FROM blog WHERE blog_id = ${ blog_id }' , { blog_id: req.body.blog_id})
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)

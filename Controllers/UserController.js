@@ -5,7 +5,7 @@ class UserController {
     async getUsers(res) {
         await db.query('SELECT * FROM users')
             .then((data) => {
-                res.send(data)
+                res.send(data[0])
             })
             .catch((error) => {
                 console.error(error)
@@ -62,7 +62,6 @@ class UserController {
             { login: userData.login } )
             .then((data) => {
                 if(userData.login === data[0].user_login && userData.password === data[0].user_password) {
-
                     res.send({ message: 'Успешное подключение', user_id: data[0].user_id })
                 } else {
                     res.send({ message:'Неправильное имя пользователя или пароль' })
