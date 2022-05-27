@@ -49,7 +49,7 @@ class UserController {
     async getUserInfo(req, res) {
         await db.query('SELECT user_id, user_name, user_login FROM users WHERE user_id = ${ id }' , { id: req.body.id})
             .then((data) => {
-                db.query('SELECT (SELECT count(user_id) FROM comment WHERE user_id = ${ id }) as comment_count, (SELECT count(user_id) FROM blog WHERE user_id = ${ id }) as blog_count',
+                db.query('SELECT (SELECT count(user_id) FROM comment WHERE user_id = ${ id }) as comment_count, (SELECT count(blog_id) FROM blog WHERE user_id = ${ id }) as blog_count',
                     { id:data[0].user_id })
                     .then((count) => {
                         res.send({ ...data[0], ...count[0]})
