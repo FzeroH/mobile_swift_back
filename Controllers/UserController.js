@@ -55,6 +55,24 @@ class UserController {
                 console.error(error)
             })
     }
+
+    async login (req, res) {
+        const userData = req.body
+        await db.query('SELECT user_id, user_login, user_password FROM users WHERE user_login = ${ login }',
+            { login: userData.login } )
+            .then((data) => {
+                if(userData.login === data[0].user_login && userData.password === data[0].user_password) {
+
+                    res.send({ message: 'Успешное подключение', user_id: data[0].user_id })
+                } else {
+                    res.send({ message:'Неправильное имя пользователя или пароль' })
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+                res.send(error)
+            })
+    }
 }
 
 module.exports = { UserController }
