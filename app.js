@@ -19,6 +19,10 @@ app.post('/api/create_user' ,(req, res) => {
     userController.createUser(req, res)
 });
 
+app.post('/api/login' ,(req, res) => {
+    userController.login(req, res)
+});
+
 app.post('/api/get_user', (req, res) => {
     userController.getUserInfo(req, res)
 });
