@@ -3,7 +3,7 @@ const { db } = require('../database')
 class ArticlesController {
     async createArticle(req, res) {
         const articleData = req.body
-        const date = new Date ()
+        const date = new Date().toLocaleDateString()
         db.query('INSERT INTO blog (user_id, blog_title, blog_text, blog_datetime) VALUES (${userId}, ${blogTitle}, ${blogText}, ${blogDateTime})',{
             userId: articleData.userId,
             blogTitle: articleData.blogTitle,
@@ -19,7 +19,7 @@ class ArticlesController {
     }
 
     async getArticlesList(res) {
-        await db.query('SELECT * FROM blog')
+        await db.query('SELECT users.user_name, blog.blog_id, blog.user_id, blog.blog_datetime, blog.blog_title, blog.blog_text FROM blog JOIN users ON blog.blog_id = users.user_id')
             .then((data) => {
                 res.send(data)
             })
@@ -29,7 +29,7 @@ class ArticlesController {
     }
 
     async getArticle(req, res) {
-        await db.query('SELECT * FROM blog WHERE blog_id = ${ blog_id }' , { blog_id: req.body.blog_id})
+        await db.query('SELECT users.user_name, blog.blog_id, blog.user_id, blog.blog_datetime, blog.blog_title, blog.blog_text FROM blog JOIN users ON blog.blog_id = users.user_id WHERE blog_id = ${ blog_id }' , { blog_id: req.body.blog_id})
             .then((data) => {
                 res.send(data[0])
             })
