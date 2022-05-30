@@ -28,19 +28,6 @@ class CommentsController {
                 console.error(error)
             })
     }
-
-    async getNumberComments (req, res) {
-        await db.query('SELECT count(comment_id) FROM comment WHERE user_id = ${ user_id }', {
-            user_id: req.body.user_id
-        })
-            .then((data) => {
-                res.send(data[0])
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
-
 }
 
 module.exports = { CommentsController }
