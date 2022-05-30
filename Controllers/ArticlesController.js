@@ -19,7 +19,7 @@ class ArticlesController {
     }
 
     async getArticlesList(res) {
-        await db.query('SELECT users.user_name, blog.blog_id, blog.user_id, blog.blog_datetime, blog.blog_title, blog.blog_text FROM blog JOIN users ON blog.blog_id = users.user_id')
+        await db.query('SELECT users.user_name, blog.blog_id, blog.user_id, blog.blog_datetime, blog.blog_title, blog.blog_text FROM blog JOIN users ON blog.user_id = users.user_id')
             .then((data) => {
                 res.send(data)
             })
